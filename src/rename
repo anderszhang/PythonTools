@@ -1,0 +1,15 @@
+#!/bin/sh 
+folder=interface
+num=$(ls -a 46*.xml interface|wc -w)
+echo 开始重命名文件
+for file in $(ls  46*.xml interface); do
+        tmp=${file#46}
+        newFile=040$tmp
+        oldName=${file%.xml}
+        newName=${newFile%.xml}
+        # 替换交易码
+        sed -i s/$oldName/$newName/g ${folder}//$file
+        # 重命名文件
+        mv -v ${folder}//$file ${folder}//$newFile
+done
+echo 重命名文件结束,共重命名文件$num个
